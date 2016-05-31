@@ -1,0 +1,85 @@
+<!DOCTYPE HTML>
+<html ng-app="todoApp">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>SoundTouch List</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <style type="text/css">
+    @import url("css/style.css");
+    @import url("libs/ng-sortable.min.css");
+    @import url("libs/ng-sortable.style.css");
+    </style>
+    <script type="text/javascript" src="libs/jquery.min.js"></script>
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+
+    <script type="text/javascript" src="libs/angular.min.js"></script>
+    <script type="text/javascript" src="libs/ng-sortable.min.js"></script>
+    <script type="text/javascript" src="js/app.js"></script>
+    <script type="text/javascript" src="js/sortableController.js"></script>
+</head>
+
+<body class="container-fluid" >
+    <h2>Todo</h2>
+    <div ng-controller="TodoListController as todoList">
+        <span>{{todoList.remaining()}} of {{todoList.todos.length}} remaining</span> [ <a href="" ng-click="todoList.archive()">archive</a> ]
+        <ul class="unstyled">
+            <li ng-repeat="todo in todoList.todos">
+                <label class="checkbox">
+                    <input type="checkbox" ng-model="todo.done">
+                    <span class="done-{{todo.done}}">{{todo.text}}</span>
+                </label>
+            </li>
+        </ul>
+        <form ng-submit="todoList.addTodo()">
+            <input type="text" ng-model="todoList.todoText" size="30" placeholder="add new todo here">
+            <input class="btn-primary" type="submit" value="add">
+        </form>
+    </div>
+    <h2>Sortable:</h2>
+    <div class="pre-scrollable" ng-controller="SortableController">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                Scroll the container...
+            </div>
+        </div>
+        <div id="scrollable-container">
+            <div class="sortable-row" data-as-sortable="sortableOptions"  data-ng-model="itemsList.items1">
+                <div ng-repeat="item in itemsList.items1" class="as-sortable-item" as-sortable-item="" >
+                    <div class="as-sortable-item-handle" as-sortable-item-handle="">{{item.Label}}</div>
+                </div>
+            </div>
+            <hr/>
+            <div class="sortable-row" as-sortable="sortableOptions" data-ng-model="itemsList.items2">
+                <div ng-repeat="item in itemsList.items2" as-sortable-item="" >
+                    <div as-sortable-item-handle="">{{item.Label}}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
+ <!-- <tbody >
+                                    <tr ng-click="selectTestPoint(tp.testpointId)" as-sortable-item="" class="as-sortable-item" ng-class="tp.status==109?'testpoint-disabled':selectedTPId==tp.testpointId? 'hover-row selected': 'hover-row'" ng-repeat="tp in route.testpoints">
+                                        <td as-sortable-item-handle="" class="as-sortable-item-handle">
+                                            <span class="glyphicon glyphicon-menu-hamburger" style="float: left; font-size: 24px;"></span>
+                                        </td>
+                                        <td as-sortable-item-handle="" scope="row" class="tp-img-col as-sortable-item-handle">
+                                            <div class="panel panel-default tp-img-holder">
+                                                <img class="tp-image-small" ng-src="http://p2stec.com/images/p2s/{{tp.testpointId}}.jpg" onError="onTpImgError(this)" />
+                                            </div>
+                                        </td>
+                                        <td as-sortable-item-handle="" class="as-sortable-item-handle">{{tp.name}}</td>
+                                        <td as-sortable-item-handle="" class="as-sortable-item-handle"> {{ enumService.TYPE_TEST_POINT.get(tp.type)+"&nbsp; "}}</td>
+                                        <td as-sortable-item-handle="" class="as-sortable-item-handle">{{tp.distance}}</td>
+                                        <td>
+                                            <div class="red" style="float: right; font-size: 24px;">
+                                                <span ng-show="showDelete" ng-click="showDeleteConfirmDialog(tp)" class="glyphicon glyphicon-remove"></span>
+                                            </div>
+                                            <span ng-show="tp.read.comments" class="left-qtip glyphicon glyphicon-exclamation-sign" title="Comments: {{tp.read.comments}}" aria-hidden="true" style="float: right; font-size: 24px;"></span>
+                                        </td>
+                                    </tr>
+                                </tbody> -->
